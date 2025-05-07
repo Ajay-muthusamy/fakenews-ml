@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake News Detector</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            display: inline-block;
+            width: 60%;
+        }
+
+        textarea {
+            width: 90%;
+            height: 150px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            resize: none;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            margin: 10px 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: green;
+        }
+
+        .clear-button {
+            background-color: #dc3545;
+        }
+
+        .clear-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <h1>📰 Fake News Detection</h1>
+
+    <form id="newsForm" action="/predict" method="POST" onsubmit="return validateForm()">
+        <textarea name="news" id="newsInput" placeholder="Enter news text here...">{{ input_text or '' }}</textarea><br><br>
+        <button type="submit">Check News</button>
+        <button type="button" class="clear-button" onclick="clearForm()">Check Again</button>
+    </form>
+
+    {% if prediction %}
+        <div class="result">Prediction: <strong>{{ prediction }}</strong></div>
+    {% endif %}
+
+    <script>
+        function validateForm() {
+            const input = document.getElementById("newsInput").value.trim();
+            if (input === "") {
+                alert("Please enter text");
+                return false;
+            }
+            return true;
+        }
+    
+        function clearForm() {
+            document.getElementById("newsInput").value = '';
+            const resultDiv = document.querySelector('.result');
+            if (resultDiv) {
+                resultDiv.style.display = 'none';
+            }
+        }
+    </script>    
+</body>
+</html>
