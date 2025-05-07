@@ -40,6 +40,7 @@ def predict():
         result = output_label(pred[0])
         return render_template("index.html", prediction=result, input_text=news)
 
-if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5050)
+
 
